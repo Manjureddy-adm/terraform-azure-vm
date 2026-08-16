@@ -1,0 +1,4 @@
+# Example terraform.tfvars
+
+location = "eastus"
+rg_name  = "example-nginx-rg"
