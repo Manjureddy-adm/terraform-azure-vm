@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Build started'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Tests started'
+            }
+        }
+
+        stage('Install Nginx') {
+            steps {
+                sh '''
+                    brew install nginx
+                    brew services start nginx
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deployment completed'
+            }
+        }
+    }
+}
+
