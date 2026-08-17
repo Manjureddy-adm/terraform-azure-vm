@@ -1,7 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -23,8 +28,25 @@ pipeline {
         stage('Install Nginx') {
             steps {
                 sh '''
+                    which brew
+                    brew --version
                     brew install nginx
+                '''
+            }
+        }
+
+        stage('Start Nginx') {
+            steps {
+                sh '''
                     brew services start nginx
+                '''
+            }
+        }
+
+        stage('Verify Nginx') {
+            steps {
+                sh '''
+                    nginx -v
                 '''
             }
         }
@@ -36,4 +58,3 @@ pipeline {
         }
     }
 }
-
